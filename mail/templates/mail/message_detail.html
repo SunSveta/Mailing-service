@@ -1,0 +1,12 @@
+{% extends 'mail/base.html' %}
+
+{% block content %}
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">{{object.title}}</h3>
+                    <p class="card-text">Текст: {{object.text}}</p>
+                    <a  href="{% url 'mail:mes_update' object.pk %}">Изменить</a>
+                    <a  href="{% url 'mail:mes_delete' object.pk %}">Удалить</a>
+                </div>
+            </div>
+{% endblock %}

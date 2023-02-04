@@ -1,0 +1,17 @@
+{% extends 'mail/base.html' %}
+
+{% block content %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{object.send_time}}</h5>
+                    <h5 class="card-title">{{ object.period}}</h5>
+                    <h5 class="card-title">{{ object.status}}</h5>
+                    <h5 class="card-title">{{ object.start_date}}</h5>
+                    <h5 class="card-title">{{ object.finish_date}}</h5>
+                    <h5 class="card-title">{{ object.customer_lst}}</h5>
+                    <h5 class="card-title">{{ object.sending_msg}}</h5>
+                    <a  href="{% url 'mail:sen_update' object.pk %}">Изменить</a>
+                    <a  href="{% url 'mail:sen_delete' object.pk %}">Удалить</a>
+                </div>
+            </div>
+{% endblock %}

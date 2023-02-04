@@ -1,0 +1,42 @@
+{% extends 'mail/base.html' %}
+{% block content %}
+    <br>
+    <a class="p-2 btn btn-outline-primary" href="{% url 'mail:sen_create' %}">Добавить</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Время рассылки</th>
+            <th scope="col">Периодичность</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Дата начала</th>
+            <th scope="col">Дата окончания</th>
+            <th scope="col">Kлиенты</th>
+            <th scope="col">Сообщение</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'mail:sen_detail' object.pk %}">
+                            {{ object.id }}
+                        </a>
+                    </td>
+                    <td>{{ object.send_time }}</td>
+                    <td>{{ object.get_period_display }}</td>
+                    <td>{{ object.get_status_display }}</td>
+                    <td>{{ object.start_date }}</td>
+                    <td>{{ object.finish_date }}</td>
+                    <td>{{ object.customer_lst }}</td>
+                    <td>{{ object.sending_msg}}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block footer %}
+    {% include 'mail/includes/footer.html' %}
+{% endblock %}

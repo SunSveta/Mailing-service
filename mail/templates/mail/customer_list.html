@@ -1,0 +1,32 @@
+{% extends 'mail/base.html' %}
+{% block content %}
+    <br>
+    <a class="p-2 btn btn-outline-primary" href="{% url 'mail:create' %}">Добавить</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Контактный email</th>
+            <th scope="col">Коммент</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'mail:detail' object.pk %}">
+                            {{ object.name }}
+                        </a>
+                    </td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.comment }}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block footer %}
+    {% include 'mail/includes/footer.html' %}
+{% endblock %}

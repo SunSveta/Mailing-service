@@ -1,0 +1,30 @@
+{% extends 'mail/base.html' %}
+{% block content %}
+    <br>
+    <a class="p-2 btn btn-outline-primary" href="{% url 'mail:mes_create' %}">Добавить</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Заголовок</th>
+            <th scope="col">Текст</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'mail:mes_detail' object.pk %}">
+                            {{ object.title }}
+                        </a>
+                    </td>
+                    <td>{{ object.text }}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block footer %}
+    {% include 'mail/includes/footer.html' %}
+{% endblock %}
