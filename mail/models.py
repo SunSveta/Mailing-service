@@ -35,12 +35,12 @@ class Sending(models.Model):
         ('launched', 'запущена'),
     )
 
-    send_time = models.TimeField(verbose_name='Время рассылки', **NULLABLE)
+    send_time = models.TimeField(verbose_name='Время рассылки', auto_now=True, **NULLABLE)
     period = models.CharField(max_length=20, choices=PERIODS, default=PER_MONTH, verbose_name='Периодичность')
     status = models.CharField(max_length=20, choices=STATUSES, default=CREATED, verbose_name='Статус')
     start_date = models.DateField(default=date.today, verbose_name='Дата начала')
     finish_date = models.DateField(default=date.today, verbose_name='Дата окончания')
-    customer_lst = models.ForeignKey('mail.Customer', verbose_name='Список клиентов', on_delete=models.SET_NULL, null=True)
+    customer_lst = models.ForeignKey('mail.Customer', verbose_name='Kлиенты', on_delete=models.SET_NULL, null=True)
     sending_msg = models.ForeignKey('mail.Message', verbose_name='Сообщение', on_delete=models.SET_NULL, null=True)
 
 
