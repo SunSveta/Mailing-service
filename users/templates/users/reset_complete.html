@@ -1,0 +1,12 @@
+{% extends 'mail/base.html' %}
+
+{% block content %}
+
+    <p>
+        И снова поздравляем! Новый пароль задан
+    </p>
+    <a href="{% url 'mail:home' %}" class="btn btn-link">
+        На главную
+    </a>
+
+{% endblock %}

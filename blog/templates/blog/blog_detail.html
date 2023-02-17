@@ -1,0 +1,16 @@
+{% extends 'mail/base.html' %}
+{% load mediapath from temp %}
+
+{% block content %}
+            <div class="card">
+                <img src='{% mediapath object.preview %}' class="card-img-top-left" alt="" height=200 width=200>
+                <div class="card-body">
+                    <h4 class="card-title">{{object.title}}</h4>
+                    <p class="card-text">{{ object.content}}</p>
+                    <p class="card-text">Дата создания: {{object.date_create|date}}</p>
+                    <p class="card-text">Количество просмотров: {{object.views_num}}</p>
+                    <a  href="{% url 'blog:blog_update' object.pk %}">Изменить</a>
+                    <a  href="{% url 'blog:blog_delete' object.pk %}">Удалить</a>
+                </div>
+            </div>
+{% endblock %}

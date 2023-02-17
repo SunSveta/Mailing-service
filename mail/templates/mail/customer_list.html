@@ -9,6 +9,7 @@
             <th scope="col">Имя</th>
             <th scope="col">Контактный email</th>
             <th scope="col">Коммент</th>
+            <th scope="col">Автор</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +22,7 @@
                     </td>
                     <td>{{ object.email }}</td>
                     <td>{{ object.comment }}</td>
+                    <td>{{ object.created_user }}</td>
                 </tr>
         {% endfor %}
         </tbody>

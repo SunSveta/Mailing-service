@@ -1,7 +1,7 @@
 from django.urls import path
 
 from mail.apps import MailConfig
-from mail.views import home, CustomerDetailView, CustomerDeleteView, statistic
+from mail.views import CustomerDetailView, CustomerDeleteView, statistic, HomePageView
 from mail.views import CustomerListView, CustomerCreateView, CustomerUpdateView
 from mail.views import MessageListView, MessageCreateView, MessageUpdateView, MessageDetailView, MessageDeleteView
 from mail.views import SendingCreateView, SendingListView, SendingUpdateView, SendingDeleteView, SendingDetailView
@@ -9,7 +9,7 @@ from mail.views import SendingCreateView, SendingListView, SendingUpdateView, Se
 app_name = MailConfig.name
 
 urlpatterns = [
-    path('', home, name='home'),
+    path('', HomePageView.as_view(), name='home'),
     path('customer/', CustomerListView.as_view(), name='customer'),
     path('customer/create/', CustomerCreateView.as_view(), name='create'),
     path('customer/update/<int:pk>', CustomerUpdateView.as_view(), name='update'),

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.datetime_safe import date
 
@@ -5,6 +6,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Customer(models.Model):
+    created_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Автор', **NULLABLE)
     email = models.CharField(max_length=150, verbose_name='Контактный email')
     name = models.CharField(max_length=250, verbose_name='ФИО')
     comment = models.TextField(verbose_name='Комментарий', **NULLABLE)
@@ -29,23 +31,31 @@ class Sending(models.Model):
     COMPLETED = 'completed'
     CREATED = 'created'
     LAUNCHED = 'launched'
+    CANCELED = 'canceled'
     STATUSES = (
         ('completed', 'завершена'),
         ('created', 'создана'),
         ('launched', 'запущена'),
+        ('canceled', 'отменена'),
     )
-
+    created_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Автор', on_delete=models.CASCADE, **NULLABLE)
     send_time = models.TimeField(verbose_name='Время рассылки', auto_now=True, **NULLABLE)
-    period = models.CharField(max_length=20, choices=PERIODS, default=PER_MONTH, verbose_name='Периодичность')
+    period = models.CharField(max_length=20, choices=PERIODS, default=PER_DAY, verbose_name='Периодичность')
     status = models.CharField(max_length=20, choices=STATUSES, default=CREATED, verbose_name='Статус')
     start_date = models.DateField(default=date.today, verbose_name='Дата начала')
     finish_date = models.DateField(default=date.today, verbose_name='Дата окончания')
     customer_lst = models.ForeignKey('mail.Customer', verbose_name='Kлиенты', on_delete=models.SET_NULL, null=True)
     sending_msg = models.ForeignKey('mail.Message', verbose_name='Сообщение', on_delete=models.SET_NULL, null=True)
 
+    class Meta:
+        permissions = [
+            ('cancel_sending',
+             'Can cancel sending')
+        ]
 
 
 class Message(models.Model):
+    created_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Автор', on_delete=models.CASCADE, **NULLABLE)
     title = models.CharField(max_length=150, verbose_name='Тема сообщения', **NULLABLE)
     text = models.TextField(verbose_name='Текст сообщения')
 

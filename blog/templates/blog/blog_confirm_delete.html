@@ -1,0 +1,21 @@
+{% extends 'mail/base.html' %}
+{% load mediapath from temp %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-4"></div>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>
+                            Вы уверены, что хотите удалить запись {{ object.title }}?
+                        </p>
+                        <a class="btn btn-danger w-5" href="{% url 'blog:blog' %}">Нет</a>
+                        <button class="btn btn-success w-5" type="submit">Да</button>
+
+                    </form>
+                </div>
+            </div>
+    </div>
+{% endblock %}
